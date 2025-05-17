@@ -1,6 +1,7 @@
 package com.scm.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class HomeService {
 		}
 
 		return false;
+	}
+
+	public List<DbUser> getAllData() {
+		return homeRepository.getAllUser();
 	}
 
 }

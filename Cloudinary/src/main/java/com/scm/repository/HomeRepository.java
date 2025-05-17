@@ -3,7 +3,10 @@ package com.scm.repository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +35,31 @@ public class HomeRepository {
 		}
 
 		return false;
+	}
+
+	public List<DbUser> getAllUser() {
+
+		String query = "select * from user";
+
+		List<DbUser> list = new ArrayList<>();
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cloudinary", "root", "Pass@123");
+			PreparedStatement ps = conn.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				DbUser user = new DbUser(rs.getInt("id"), rs.getString("name"), rs.getBoolean("ishuman"),
+						rs.getString("imagepublicId"), rs.getString("imageId"));
+				list.add(user);
+
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }
