@@ -1,6 +1,8 @@
 console.log("Abc is name");
 
-function showPage(id) {
+function showPage(id, event) {
+	// stops the default link behavior
+	event.preventDefault();
 	console.log(id);
 
 	let xhttp = new XMLHttpRequest();
@@ -23,6 +25,7 @@ function showPage(id) {
 	xhttp.open("get", "/get/" + id, true)
 	xhttp.send();
 }
+
 
 function closePopup() {
 	document.getElementById("popup").style.display = "none";

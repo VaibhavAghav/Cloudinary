@@ -102,7 +102,7 @@ body {
 							<td>${user.ishuman}</td>
 							<td><a href="${user.publicUserImageId}" target="_blank">View
 									Image</a></td>
-							<td><a href="" onclick="showPage(${user.id})"
+							<td><a href="#" onclick="showPage(${user.id}, event)"
 								class="btn btn-sm btn-info text-white me-1" title="View"> <i
 									class="bi bi-eye"></i>
 							</a> <a href="/edit/${user.id}"
@@ -134,8 +134,7 @@ body {
 			<strong>Is Human:</strong> <span id="isHuman"></span>
 		</p>
 		<img id="userImage" src="" alt="User Image" width="150" height="150"
-			style="margin-top: 10px;"><br>
-		<br>
+			style="margin-top: 10px;"><br> <br>
 		<button onclick="closePopup()">Close</button>
 	</div>
 
