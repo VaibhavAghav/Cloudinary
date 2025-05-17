@@ -48,4 +48,35 @@ public class HomeService {
 		return homeRepository.getUserById(id);
 	}
 
+	public boolean updateUser(User user, String existingPublicId, String existingSecureUrl) {
+		DbUser dbUser = homeRepository.getUserById(user.getId());
+		System.out.println("UserUpdate HomeService Method");
+
+		try {
+			dbUser.setIshuman(user.isIshuman());
+			dbUser.setName(user.getName());
+
+			if (!user.getPhoto().isEmpty()) {
+				System.out.println("Uploading new image");
+				Map uploadFile = imageService.uploaFile(user.getPhoto());
+				  dbUser.setPublicUserImageId((String) uploadFile.get("public_id"));
+		            dbUser.setUserImageId((String) uploadFile.get("secure_url"));
+			} else {
+				System.out.println("No new image, keeping existing");
+				dbUser.setPublicUserImageId(existingPublicId);
+				dbUser.setUserImageId(existingSecureUrl);
+			}
+
+			return homeRepository.updateUser(dbUser);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean deleteUser(int id) {
+		return homeRepository.deleteUserById(id);
+	}
+
 }

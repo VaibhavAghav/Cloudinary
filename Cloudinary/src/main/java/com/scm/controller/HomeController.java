@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scm.model.DbUser;
@@ -43,7 +44,7 @@ public class HomeController {
 
 		System.out.println("saving user false " + save);
 
-		return "home";
+		return "redirect:/all";
 	}
 
 	@GetMapping("/all")
@@ -60,6 +61,33 @@ public class HomeController {
 		DbUser user = homeService.getUserById(id);
 		System.out.println("user information " + user);
 		return user;
+	}
+
+	@GetMapping("/edit/{id}")
+	public String updateUser(@PathVariable int id, Model model) {
+		System.out.println("USer in getUserById " + id);
+		DbUser user = homeService.getUserById(id);
+		System.out.println("user information " + user);
+		model.addAttribute("user", user);
+		return "update";
+	}
+
+	@PostMapping("/update")
+	public String updateData(@ModelAttribute User user, @RequestParam("existingPublicId") String existingPublicId,
+			@RequestParam("existingSecureUrl") String existingSecureUrl) throws IOException {
+
+		System.out.println("UpdateUser Controller");
+
+		boolean save = homeService.updateUser(user, existingPublicId, existingSecureUrl);
+		System.out.println("saving user result: " + save);
+
+		return "redirect:/all";
+	}
+
+	@GetMapping("/delete/{id}")
+	public String deleteUser(@PathVariable int id) {
+		boolean delete = homeService.deleteUser(id);
+		return "redirect:/all";
 	}
 
 }
