@@ -85,5 +85,8 @@ input[type="submit"]:hover {
 
 	</form>
 
+	<a href="/all" class="btn btn-primary mb-3">Back To Register</a>
+
+
 </body>
 </html>

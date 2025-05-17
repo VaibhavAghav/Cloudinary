@@ -44,4 +44,8 @@ public class HomeService {
 		return homeRepository.getAllUser();
 	}
 
+	public DbUser getUserById(int id) {
+		return homeRepository.getUserById(id);
+	}
+
 }

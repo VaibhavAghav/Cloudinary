@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scm.model.DbUser;
 import com.scm.model.User;
@@ -49,6 +51,15 @@ public class HomeController {
 		List<DbUser> alluser = homeService.getAllData();
 		model.addAttribute("users", alluser);
 		return "viewall";
+	}
+
+	@GetMapping("/get/{id}")
+	@ResponseBody
+	public DbUser getUSerById(@PathVariable int id) {
+		System.out.println("USer in getUserById " + id);
+		DbUser user = homeService.getUserById(id);
+		System.out.println("user information " + user);
+		return user;
 	}
 
 }

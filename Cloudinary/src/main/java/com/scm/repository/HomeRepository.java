@@ -62,4 +62,28 @@ public class HomeRepository {
 		return null;
 	}
 
+	public DbUser getUserById(int id) {
+
+		String query = "select * from user where id = ?";
+
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cloudinary", "root", "Pass@123");
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				DbUser user = new DbUser(rs.getInt("id"), rs.getString("name"), rs.getBoolean("ishuman"),
+						rs.getString("imagepublicId"), rs.getString("imageId"));
+
+				return user;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 }
